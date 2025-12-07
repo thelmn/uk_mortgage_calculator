@@ -1,4 +1,5 @@
 import React from 'react';
+import { InfoTooltip } from './InfoTooltip';
 
 interface SelectFieldProps {
   label: string;
@@ -7,6 +8,7 @@ interface SelectFieldProps {
   onChange: (value: string | number) => void;
   disabled?: boolean;
   className?: string;
+  tooltip?: string;
 }
 
 export const SelectField: React.FC<SelectFieldProps> = ({
@@ -16,10 +18,14 @@ export const SelectField: React.FC<SelectFieldProps> = ({
   onChange,
   disabled = false,
   className = '',
+  tooltip,
 }) => {
   return (
     <div className={className}>
-      <label className="block text-xs text-gray-600 mb-1">{label}</label>
+      <label className="flex items-center text-xs text-gray-600 mb-1">
+        {label}
+        {tooltip && <InfoTooltip content={tooltip} />}
+      </label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}

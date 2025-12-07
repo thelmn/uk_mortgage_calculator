@@ -3,7 +3,8 @@
 import React from 'react';
 import { Scenario, LumpSumOverpayment, SURVEY_OPTIONS } from '@/types';
 import { formatCurrency, calculateLTV, calculateStampDuty } from '@/engine';
-import { Tabs, InputField, SelectField, CheckboxField, Button, CollapsibleSection } from '@/components/ui';
+import { Tabs, InputField, SelectField, CheckboxField, Button, CollapsibleSection, InfoTooltip } from '@/components/ui';
+import { INPUT_TOOLTIPS } from '@/constants/tooltips';
 
 interface InputFormProps {
   scenario: Scenario;
@@ -96,6 +97,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                     type="number"
                     value={scenario.propertyPrice}
                     onChange={(v) => onUpdateScenario('propertyPrice', v)}
+                    tooltip={INPUT_TOOLTIPS.propertyPrice}
                   />
                   <div className="flex gap-3">
                     <InputField
@@ -104,6 +106,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       value={scenario.deposit}
                       onChange={(v) => onUpdateScenario('deposit', v)}
                       className="flex-1"
+                      tooltip={INPUT_TOOLTIPS.deposit}
                     />
                     <InputField
                       label="LTV"
@@ -111,6 +114,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       value={`${ltv}%`}
                       disabled
                       className="flex-1"
+                      tooltip={INPUT_TOOLTIPS.ltv}
                     />
                   </div>
                 </div>
@@ -126,6 +130,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                     value={formatCurrency(scenario.propertyPrice - scenario.deposit)}
                     disabled
                     highlightClass="bg-green-50"
+                    tooltip={INPUT_TOOLTIPS.mortgageAmount}
                   />
                   <div className="flex gap-3">
                     <InputField
@@ -134,6 +139,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       value={scenario.mortgageTerm}
                       onChange={(v) => onUpdateScenario('mortgageTerm', v)}
                       className="flex-1"
+                      tooltip={INPUT_TOOLTIPS.mortgageTerm}
                     />
                     <InputField
                       label="Interest Rate (%)"
@@ -142,6 +148,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       value={scenario.interestRate}
                       onChange={(v) => onUpdateScenario('interestRate', v)}
                       className="flex-1"
+                      tooltip={INPUT_TOOLTIPS.interestRate}
                     />
                   </div>
                   <div className="flex gap-3">
@@ -151,6 +158,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       options={fixedPeriodOptions}
                       onChange={(v) => onUpdateScenario('fixedPeriod', Number(v))}
                       className="flex-1"
+                      tooltip={INPUT_TOOLTIPS.fixedPeriod}
                     />
                     <InputField
                       label="Rate After Fix (%)"
@@ -160,6 +168,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       onChange={(v) => onUpdateScenario('postFixRate', v)}
                       disabled={scenario.fixedPeriod === 0}
                       className="flex-1"
+                      tooltip={INPUT_TOOLTIPS.postFixRate}
                     />
                   </div>
                   <div className="flex gap-3">
@@ -171,6 +180,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       value={scenario.paymentDay}
                       onChange={(v) => onUpdateScenario('paymentDay', v)}
                       className="flex-1"
+                      tooltip={INPUT_TOOLTIPS.paymentDay}
                     />
                     <InputField
                       label="Interest Charge Date"
@@ -180,6 +190,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       value={scenario.chargeDay}
                       onChange={(v) => onUpdateScenario('chargeDay', v)}
                       className="flex-1"
+                      tooltip={INPUT_TOOLTIPS.chargeDay}
                     />
                   </div>
                 </div>
@@ -194,6 +205,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                     type="number"
                     value={scenario.monthlyOverpayment}
                     onChange={(v) => onUpdateScenario('monthlyOverpayment', v)}
+                    tooltip={INPUT_TOOLTIPS.monthlyOverpayment}
                   />
                   
                   {scenario.lumpSumOverpayments.map((ls, index) => (
@@ -205,6 +217,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                         onChange={(v) => onUpdateLumpSum(index, 'date', String(v))}
                         placeholder="2025-06"
                         className="flex-1"
+                        tooltip={index === 0 ? INPUT_TOOLTIPS.lumpSumDate : undefined}
                       />
                       <InputField
                         label="Amount"
@@ -212,6 +225,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                         value={ls.amount}
                         onChange={(v) => onUpdateLumpSum(index, 'amount', Number(v))}
                         className="flex-1"
+                        tooltip={index === 0 ? INPUT_TOOLTIPS.lumpSumAmount : undefined}
                       />
                       <button
                         onClick={() => onRemoveLumpSum(index)}
@@ -238,26 +252,33 @@ export const InputForm: React.FC<InputFormProps> = ({
                       type="number"
                       value={scenario.productFee}
                       onChange={(v) => onUpdateScenario('productFee', v)}
+                      tooltip={INPUT_TOOLTIPS.productFee}
                     />
                     <CheckboxField
                       label="Add fee to mortgage"
                       checked={scenario.addFeeToMortgage}
                       onChange={(v) => onUpdateScenario('addFeeToMortgage', v)}
+                      tooltip={INPUT_TOOLTIPS.addFeeToMortgage}
                     />
                     <InputField
                       label="Booking Fee"
                       type="number"
                       value={scenario.bookingFee}
                       onChange={(v) => onUpdateScenario('bookingFee', v)}
+                      tooltip={INPUT_TOOLTIPS.bookingFee}
                     />
                   </div>
 
-                  <h3 className="text-xs font-medium text-gray-600 uppercase tracking-wide mb-4 mt-8">Early Repayment Charges</h3>
+                  <h3 className="flex items-center text-xs font-medium text-gray-600 uppercase tracking-wide mb-4 mt-8">
+                    Early Repayment Charges
+                    <InfoTooltip content={INPUT_TOOLTIPS.ercRates} />
+                  </h3>
                   <div className="space-y-5">
                     <CheckboxField
                       label="ERCs apply"
                       checked={scenario.hasERC}
                       onChange={(v) => onUpdateScenario('hasERC', v)}
+                      tooltip={INPUT_TOOLTIPS.hasERC}
                     />
                     {scenario.hasERC && (
                       <>
@@ -266,6 +287,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                           type="number"
                           value={scenario.annualAllowance}
                           onChange={(v) => onUpdateScenario('annualAllowance', v)}
+                          tooltip={INPUT_TOOLTIPS.annualAllowance}
                         />
                         <div className="space-y-2">
                           <label className="block text-xs text-gray-600">ERC Rates by Year (%)</label>
@@ -308,16 +330,19 @@ export const InputForm: React.FC<InputFormProps> = ({
                           label="First-time buyer"
                           checked={scenario.isFirstTimeBuyer}
                           onChange={(v) => onUpdateScenario('isFirstTimeBuyer', v)}
+                          tooltip={INPUT_TOOLTIPS.isFirstTimeBuyer}
                         />
                         <CheckboxField
                           label="Additional property"
                           checked={scenario.isAdditionalProperty}
                           onChange={(v) => onUpdateScenario('isAdditionalProperty', v)}
+                          tooltip={INPUT_TOOLTIPS.isAdditionalProperty}
                         />
                         <CheckboxField
                           label="Non-UK resident"
                           checked={scenario.isNonResident}
                           onChange={(v) => onUpdateScenario('isNonResident', v)}
+                          tooltip={INPUT_TOOLTIPS.isNonResident}
                         />
                       </div>
                     </div>
@@ -328,6 +353,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       value={formatCurrency(calculateStampDuty(scenario.propertyPrice, scenario.isFirstTimeBuyer, scenario.isAdditionalProperty, scenario.isNonResident))}
                       disabled
                       highlightClass="bg-green-50"
+                      tooltip={INPUT_TOOLTIPS.stampDuty}
                     />
                     
                     <InputField
@@ -335,6 +361,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       type="number"
                       value={scenario.solicitorFees}
                       onChange={(v) => onUpdateScenario('solicitorFees', v)}
+                      tooltip={INPUT_TOOLTIPS.solicitorFees}
                     />
                     
                     <InputField
@@ -342,6 +369,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       type="number"
                       value={scenario.disbursements}
                       onChange={(v) => onUpdateScenario('disbursements', v)}
+                      tooltip={INPUT_TOOLTIPS.disbursements}
                     />
                     
                     <SelectField
@@ -349,6 +377,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       value={scenario.surveyType}
                       options={SURVEY_OPTIONS}
                       onChange={(v) => onUpdateScenario('surveyType', v)}
+                      tooltip={INPUT_TOOLTIPS.surveyType}
                     />
                     
                     {scenario.surveyType === 'custom' && (
@@ -357,6 +386,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                         type="number"
                         value={scenario.surveyCost}
                         onChange={(v) => onUpdateScenario('surveyCost', v)}
+                        tooltip={INPUT_TOOLTIPS.surveyCost}
                       />
                     )}
                     
@@ -365,6 +395,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       type="number"
                       value={scenario.brokerFee}
                       onChange={(v) => onUpdateScenario('brokerFee', v)}
+                      tooltip={INPUT_TOOLTIPS.brokerFee}
                     />
                     
                     <InputField
@@ -372,6 +403,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       type="number"
                       value={scenario.valuationFee}
                       onChange={(v) => onUpdateScenario('valuationFee', v)}
+                      tooltip={INPUT_TOOLTIPS.valuationFee}
                     />
                     
                     <InputField
@@ -379,6 +411,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       type="number"
                       value={scenario.buildingsInsurance}
                       onChange={(v) => onUpdateScenario('buildingsInsurance', v)}
+                      tooltip={INPUT_TOOLTIPS.buildingsInsurance}
                     />
                     
                     <InputField
@@ -386,6 +419,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       type="number"
                       value={scenario.movingCosts}
                       onChange={(v) => onUpdateScenario('movingCosts', v)}
+                      tooltip={INPUT_TOOLTIPS.movingCosts}
                     />
                     
                     <InputField
@@ -393,6 +427,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                       type="number"
                       value={scenario.furnitureRenovation}
                       onChange={(v) => onUpdateScenario('furnitureRenovation', v)}
+                      tooltip={INPUT_TOOLTIPS.furnitureRenovation}
                     />
                   </div>
                 </CollapsibleSection>

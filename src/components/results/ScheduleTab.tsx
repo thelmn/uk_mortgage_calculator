@@ -3,6 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import { ScenarioResult, CHART_COLORS } from '@/types';
 import { formatCurrency, formatNumber } from '@/engine';
+import { InfoTooltip } from '@/components/ui';
+import { SCHEDULE_TOOLTIPS } from '@/constants/tooltips';
 
 interface ScheduleTabProps {
   results: ScenarioResult[];
@@ -58,7 +60,10 @@ export const ScheduleTab: React.FC<ScheduleTabProps> = ({ results }) => {
 
   return (
     <div className="bg-white rounded shadow-md p-6">
-      <h2 className="text-lg font-medium mb-4">Amortization Schedule</h2>
+      <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
+        Amortization Schedule
+        <InfoTooltip content={SCHEDULE_TOOLTIPS.sectionHeader} />
+      </h2>
       
       {/* Pagination Controls - Top */}
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">

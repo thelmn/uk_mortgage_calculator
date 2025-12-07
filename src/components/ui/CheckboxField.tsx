@@ -1,10 +1,12 @@
 import React from 'react';
+import { InfoTooltip } from './InfoTooltip';
 
 interface CheckboxFieldProps {
   label: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
   className?: string;
+  tooltip?: string;
 }
 
 export const CheckboxField: React.FC<CheckboxFieldProps> = ({
@@ -12,6 +14,7 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   checked,
   onChange,
   className = '',
+  tooltip,
 }) => {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
@@ -21,7 +24,10 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
         onChange={(e) => onChange(e.target.checked)}
         className="w-4 h-4 text-primary rounded focus:ring-primary"
       />
-      <label className="text-sm">{label}</label>
+      <label className="flex items-center text-sm">
+        {label}
+        {tooltip && <InfoTooltip content={tooltip} />}
+      </label>
     </div>
   );
 };

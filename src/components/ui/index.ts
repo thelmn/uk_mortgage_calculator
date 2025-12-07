@@ -5,3 +5,5 @@ export { CheckboxField } from './CheckboxField';
 export { Button } from './Button';
 export { CollapsibleSection } from './CollapsibleSection';
 export { ExportDropdown } from './ExportDropdown';
+export { InfoTooltip, SectionTooltip } from './InfoTooltip';
+export { HelpModal } from './HelpModal';

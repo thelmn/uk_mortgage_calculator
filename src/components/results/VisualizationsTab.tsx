@@ -18,6 +18,8 @@ import {
 } from 'recharts';
 import { ScenarioResult, CHART_COLORS } from '@/types';
 import { formatCurrency, formatNumber } from '@/engine';
+import { InfoTooltip } from '@/components/ui';
+import { CHART_TOOLTIPS } from '@/constants/tooltips';
 
 interface VisualizationsTabProps {
   results: ScenarioResult[];
@@ -268,7 +270,10 @@ export const VisualizationsTab: React.FC<VisualizationsTabProps> = ({ results })
     <>
       {/* Balance Over Time Chart */}
       <div className="bg-white rounded shadow-md p-6 mb-6">
-        <h2 className="text-lg font-medium mb-4">Mortgage Balance Over Time</h2>
+        <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
+          Mortgage Balance Over Time
+          <InfoTooltip content={CHART_TOOLTIPS.mortgageBalance} />
+        </h2>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={balanceData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -306,7 +311,10 @@ export const VisualizationsTab: React.FC<VisualizationsTabProps> = ({ results })
 
       {/* Monthly Payment Timeline */}
       <div className="bg-white rounded shadow-md p-6 mb-6">
-        <h2 className="text-lg font-medium mb-4">Monthly Payment Timeline</h2>
+        <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
+          Monthly Payment Timeline
+          <InfoTooltip content={CHART_TOOLTIPS.monthlyPayment} />
+        </h2>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={paymentData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -344,7 +352,10 @@ export const VisualizationsTab: React.FC<VisualizationsTabProps> = ({ results })
 
       {/* Interest vs Capital - Multi-scenario */}
       <div className="bg-white rounded shadow-md p-6 mb-6">
-        <h2 className="text-lg font-medium mb-4">Interest vs Capital Repayment</h2>
+        <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
+          Interest vs Capital Repayment
+          <InfoTooltip content={CHART_TOOLTIPS.interestVsCapital} />
+        </h2>
         {results.length > 0 && (
           <ResponsiveContainer width="100%" height={350}>
             <AreaChart data={interestCapitalData}>
@@ -393,7 +404,10 @@ export const VisualizationsTab: React.FC<VisualizationsTabProps> = ({ results })
 
       {/* Cumulative Interest */}
       <div className="bg-white rounded shadow-md p-6 mb-6">
-        <h2 className="text-lg font-medium mb-4">Cumulative Interest Paid</h2>
+        <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
+          Cumulative Interest Paid
+          <InfoTooltip content={CHART_TOOLTIPS.cumulativeInterest} />
+        </h2>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={cumulativeData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -431,7 +445,10 @@ export const VisualizationsTab: React.FC<VisualizationsTabProps> = ({ results })
 
       {/* Total Cost Comparison */}
       <div className="bg-white rounded shadow-md p-6">
-        <h2 className="text-lg font-medium mb-4">Total Cost Comparison</h2>
+        <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
+          Total Cost Comparison
+          <InfoTooltip content={CHART_TOOLTIPS.totalCostComparison} />
+        </h2>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={results.map(r => ({
             name: r.scenario.name,

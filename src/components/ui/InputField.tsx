@@ -1,4 +1,5 @@
 import React from 'react';
+import { InfoTooltip } from './InfoTooltip';
 
 interface InputFieldProps {
   label: string;
@@ -12,6 +13,7 @@ interface InputFieldProps {
   placeholder?: string;
   className?: string;
   highlightClass?: string;
+  tooltip?: string;
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -26,6 +28,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   className = '',
   highlightClass = '',
+  tooltip,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
@@ -36,7 +39,10 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <div className={className}>
-      <label className="block text-xs text-gray-600 mb-1">{label}</label>
+      <label className="flex items-center text-xs text-gray-600 mb-1">
+        {label}
+        {tooltip && <InfoTooltip content={tooltip} />}
+      </label>
       <input
         type={type}
         value={value}

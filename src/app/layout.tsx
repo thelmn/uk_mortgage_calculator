@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'UK Mortgage Calculator',
   description: 'A comprehensive UK mortgage calculator with multi-scenario comparison, overpayment modeling, and visualization',
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export default function RootLayout({
