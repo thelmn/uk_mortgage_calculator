@@ -2,7 +2,7 @@
 
 A comprehensive UK mortgage calculator built with Next.js, React, TypeScript, and Tailwind CSS. This application allows users to model multiple mortgage scenarios, understand the true cost of borrowing, and optimize their mortgage strategy.
 
-[![WebAppButton]](https://uk-mortgage-calculator-bylmn.vercel.app/){:target="_blank"}
+[![WebAppButton]](https://uk-mortgage-calculator-bylmn.vercel.app/)
 
 [WebAppButton]: https://img.shields.io/badge/View_web_app-blue?style=flat
 
