@@ -18,7 +18,10 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <header className="bg-primary text-white h-15 flex items-center justify-between px-6 shadow-md flex-shrink-0">
-        <h1 className="text-xl font-medium">{title}</h1>
+        <h1 className="text-xl font-medium flex items-center gap-2">
+          <span>🏠</span>
+          {title}
+        </h1>
         <div className="flex items-center gap-3">
           <ExportDropdown
             results={results}
